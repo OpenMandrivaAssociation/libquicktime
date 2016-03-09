@@ -17,7 +17,7 @@
 Summary:	A library for manipulating QuickTime files
 Name:		libquicktime
 Version:	1.2.4
-Release:	5%{?extrarelsuffix}
+Release:	6%{?extrarelsuffix}
 %if %{build_plf}
 License:	GPLv2+
 %else
@@ -27,6 +27,7 @@ Group:		Video
 Url:		http://libquicktime.sourceforge.net/
 Source0:	http://prdownloads.sourceforge.net/libquicktime/%{name}-%{version}.tar.gz
 Patch1:		libquicktime-1.2.4-ffmpeg-2.0.patch
+Patch2:		libquicktime-ffmpeg3.patch
 BuildRequires:	doxygen
 BuildRequires:	gettext-devel
 BuildRequires:	ffmpeg-devel
@@ -146,6 +147,7 @@ This package is in restricted as it violates some patents.
 %prep
 %setup -q
 %apply_patches
+
 # remove rpath from libtool
 sed -i -e 's,AM_CONFIG_HEADER,AC_CONFIG_HEADERS,g' configure.*
 autoreconf -fi
