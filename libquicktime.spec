@@ -178,6 +178,8 @@ sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make_install
 #rm -f %{buildroot}%{_libdir}/libquicktime/*a
 rm -f %{buildroot}%{_libdir}/libquicktime/lqt_opendivx.so
+rm -rf %{buildroot}%{_docdir}/libquicktime
+
 %find_lang %{name}
 
 %files -f %{name}.lang
