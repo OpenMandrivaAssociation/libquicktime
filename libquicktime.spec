@@ -17,7 +17,7 @@
 Summary:	A library for manipulating QuickTime files
 Name:		libquicktime
 Version:	1.2.4
-Release:	6%{?extrarelsuffix}
+Release:	7%{?extrarelsuffix}
 %if %{build_plf}
 License:	GPLv2+
 %else
@@ -26,8 +26,11 @@ License:	LGPLv2+
 Group:		Video
 Url:		http://libquicktime.sourceforge.net/
 Source0:	http://prdownloads.sourceforge.net/libquicktime/%{name}-%{version}.tar.gz
-Patch1:		libquicktime-1.2.4-ffmpeg-2.0.patch
-Patch2:		libquicktime-ffmpeg3.patch
+Patch3:		03_ffmpeg-2.0.patch
+Patch4:		04_ffmpeg-3.0.patch
+Patch5:		05_CVE-2016-2399.patch
+Patch6:		06_CVE-2017-9122.patch
+Patch7:		07_ffmpeg-4.0.patch
 BuildRequires:	doxygen
 BuildRequires:	gettext-devel
 BuildRequires:	ffmpeg-devel
@@ -146,20 +149,20 @@ This package is in restricted as it violates some patents.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 # remove rpath from libtool
 sed -i -e 's,AM_CONFIG_HEADER,AC_CONFIG_HEADERS,g' configure.*
 autoreconf -fi
 
 %build
-%configure2_5x	\
+%configure	\
 	--with-libdv \
 	--disable-rpath \
 	--with-cpuflags="$RPM_OPT_FLAGS" \
 	--disable-static \
 	--enable-libswscale \
-%ifarch x86_64
+%ifarch %{x86_64}
 	--with-pic \
 %endif
 %if %{build_plf}
@@ -169,10 +172,10 @@ autoreconf -fi
 sed -i.rpath 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 #rm -f %{buildroot}%{_libdir}/libquicktime/*a
 rm -f %{buildroot}%{_libdir}/libquicktime/lqt_opendivx.so
 %find_lang %{name}
