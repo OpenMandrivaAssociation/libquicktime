@@ -192,7 +192,7 @@ rm -rf %{buildroot}%{_docdir}/libquicktime
 %{_libdir}/libquicktime/lqt_videocodec.so
 %{_libdir}/libquicktime/lqt_rtjpeg.so
 %{_libdir}/libquicktime/lqt_schroedinger.so
-%ifarch %arm %armx
+%ifarch %arm %armx %ix86
 %{_libdir}/libquicktime/lqt_vorbis.so
 %endif
 
