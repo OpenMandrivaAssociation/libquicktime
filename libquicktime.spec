@@ -31,6 +31,11 @@ Patch4:		04_ffmpeg-3.0.patch
 Patch5:		05_CVE-2016-2399.patch
 Patch6:		06_CVE-2017-9122.patch
 Patch7:		07_ffmpeg-4.0.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	doxygen
 BuildRequires:	gettext-devel
 BuildRequires:	ffmpeg-devel
