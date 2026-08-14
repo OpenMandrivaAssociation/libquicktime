@@ -1,0 +1,24 @@
+lqt_vorbis needs libogg (ogg_stream_packetout) on aarch64.
+
+--- a/plugins/vorbis/Makefile.am	2008-05-17 15:45:56.000000000 +0200
++++ b/plugins/vorbis/Makefile.am	2026-08-15 01:33:22.902008984 +0200
+@@ -5,7 +5,7 @@
+ 
+ lqt_vorbis_la_SOURCES = vorbis.c lqt_vorbis.c
+ lqt_vorbis_la_LDFLAGS = -avoid-version -module
+-lqt_vorbis_la_LIBADD = @MODULE_LIBADD@ @VORBISENC_LIBS@ @VORBIS_LIBS@ @VORBISFILE_LIBS@
++lqt_vorbis_la_LIBADD = @MODULE_LIBADD@ @VORBISENC_LIBS@ @VORBIS_LIBS@ @VORBISFILE_LIBS@ -logg
+ 
+ noinst_HEADERS = qtvorbis.h
+ 
+--- a/plugins/vorbis/Makefile.in	2012-03-29 21:45:17.000000000 +0200
++++ b/plugins/vorbis/Makefile.in	2026-08-15 01:33:22.902060545 +0200
+@@ -303,7 +303,7 @@
+ pkglib_LTLIBRARIES = lqt_vorbis.la
+ lqt_vorbis_la_SOURCES = vorbis.c lqt_vorbis.c
+ lqt_vorbis_la_LDFLAGS = -avoid-version -module
+-lqt_vorbis_la_LIBADD = @MODULE_LIBADD@ @VORBISENC_LIBS@ @VORBIS_LIBS@ @VORBISFILE_LIBS@
++lqt_vorbis_la_LIBADD = @MODULE_LIBADD@ @VORBISENC_LIBS@ @VORBIS_LIBS@ @VORBISFILE_LIBS@ -logg
+ noinst_HEADERS = qtvorbis.h
+ all: all-am
+ 
