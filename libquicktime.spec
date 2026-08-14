@@ -1,6 +1,10 @@
 %define major 0
 %define libname %mklibname quicktime %{major}
 %define devname %mklibname quicktime -d
+# slibtoolize + this 2012 configure.ac leaves _LT_DECL unexpanded
+%define _disable_rebuild_configure 1
+# Pre-C99 sources; clang 23 treats implicit declarations as errors
+%global optflags %{optflags} -Wno-implicit-function-declaration
 
 ######################
 # Hardcore PLF build
@@ -32,9 +36,8 @@ Patch5:		05_CVE-2016-2399.patch
 Patch6:		06_CVE-2017-9122.patch
 Patch7:		07_ffmpeg-4.0.patch
 Patch8:		08_ffmpeg-5-9.patch
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	libtool-base
+Patch9:		09_cooker-build.patch
+BuildRequires:	gnu-config
 BuildRequires:	slibtool
 BuildRequires:	make
 BuildRequires:	doxygen
@@ -157,10 +160,6 @@ This package is in restricted as it violates some patents.
 %setup -q
 %autopatch -p1
 
-# remove rpath from libtool
-sed -i -e 's,AM_CONFIG_HEADER,AC_CONFIG_HEADERS,g' configure.*
-autoreconf -fi
-
 %build
 %configure	\
 	--with-libdv \
@@ -175,13 +174,12 @@ autoreconf -fi
 --enable-gpl
 %endif
 
-sed -i.rpath 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-
-%make_build
+export LIBTOOL=slibtool-shared
+%make_build LIBTOOL=slibtool-shared
 
 %install
-%make_install
+export LIBTOOL=slibtool-shared
+%make_install LIBTOOL=slibtool-shared
 #rm -f %{buildroot}%{_libdir}/libquicktime/*a
 rm -f %{buildroot}%{_libdir}/libquicktime/lqt_opendivx.so
 rm -rf %{buildroot}%{_docdir}/libquicktime

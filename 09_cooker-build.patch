@@ -1,0 +1,47 @@
+--- a/plugins/ffmpeg/params.c
++++ b/plugins/ffmpeg/params.c
+@@ -166,6 +166,7 @@
+     { "Rate distoration",     FF_MB_DECISION_RD }
+   };
+ 
++#if defined(FF_CODER_TYPE_VLC)
+ enum_t coder_type[] =
+   {
+     { "VLC",                  FF_CODER_TYPE_VLC },
+@@ -173,6 +174,7 @@
+     { "Raw",                  FF_CODER_TYPE_RAW },
+     { "RLE",                  FF_CODER_TYPE_RLE },
+   };
++#endif
+ 
+ #define PARAM_ENUM(name, var, arr) \
+   if(!strcasecmp(key, name)) \
+@@ -335,6 +337,8 @@
+   PARAM_FLAG("ff_flag_loop_filter",AV_CODEC_FLAG_LOOP_FILTER);
+   PARAM_FLAG("ff_flag_closed_gop",AV_CODEC_FLAG_CLOSED_GOP);
+   PARAM_FLAG2("ff_flag2_fast",AV_CODEC_FLAG2_FAST);
++#if defined(FF_CODER_TYPE_VLC)
+   PARAM_ENUM("ff_coder_type",coder_type,coder_type);
++#endif
+   
+   }
+--- a/plugins/png/qtpng.c
++++ b/plugins/png/qtpng.c
+@@ -26,6 +26,7 @@
+ #include <quicktime/colormodels.h>
+ #include <png.h>
+ #include <stdlib.h>
++#include <string.h>
+ #include "qtpng.h"
+ 
+ typedef struct
+--- a/utils/lqtplay.c
++++ b/utils/lqtplay.c
+@@ -33,6 +33,7 @@
+ 
+ #include <quicktime/lqt.h>
+ #include <quicktime/colormodels.h>
++#include <string.h>
+ 
+ #include <config.h> // ONLY for the PACKAGE macro. Usually, applications never need
+                     // to include config.h
