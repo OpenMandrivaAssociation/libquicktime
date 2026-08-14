@@ -17,7 +17,7 @@
 Summary:	A library for manipulating QuickTime files
 Name:		libquicktime
 Version:	1.2.4
-Release:	9%{?extrarelsuffix}
+Release:	10%{?extrarelsuffix}
 %if %{build_plf}
 License:	GPLv2+
 %else
@@ -31,6 +31,7 @@ Patch4:		04_ffmpeg-3.0.patch
 Patch5:		05_CVE-2016-2399.patch
 Patch6:		06_CVE-2017-9122.patch
 Patch7:		07_ffmpeg-4.0.patch
+Patch8:		08_ffmpeg-5-9.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool-base
