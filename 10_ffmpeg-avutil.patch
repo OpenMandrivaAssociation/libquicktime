@@ -1,0 +1,24 @@
+Link lqt_ffmpeg against libavutil (FFmpeg 9 symbols live there).
+
+--- a/plugins/ffmpeg/Makefile.am	2008-05-17 15:45:55.000000000 +0200
++++ b/plugins/ffmpeg/Makefile.am	2026-08-15 00:46:38.771412945 +0200
+@@ -15,7 +15,7 @@
+ 
+ lqt_ffmpeg_la_SOURCES = lqt_ffmpeg.c audio.c video.c params.c
+ lqt_ffmpeg_la_LDFLAGS = -avoid-version -module
+-lqt_ffmpeg_la_LIBADD = @MODULE_LIBADD@ @AVCODEC_LIBS@ $(libswscale_libs)
++lqt_ffmpeg_la_LIBADD = @MODULE_LIBADD@ @AVCODEC_LIBS@ $(libswscale_libs) -lavutil
+ 
+ noinst_HEADERS = ffmpeg.h params.h
+ 
+--- a/plugins/ffmpeg/Makefile.in	2012-03-29 21:45:17.000000000 +0200
++++ b/plugins/ffmpeg/Makefile.in	2026-08-15 00:46:38.771469926 +0200
+@@ -308,7 +308,7 @@
+ pkglib_LTLIBRARIES = lqt_ffmpeg.la
+ lqt_ffmpeg_la_SOURCES = lqt_ffmpeg.c audio.c video.c params.c
+ lqt_ffmpeg_la_LDFLAGS = -avoid-version -module
+-lqt_ffmpeg_la_LIBADD = @MODULE_LIBADD@ @AVCODEC_LIBS@ $(libswscale_libs)
++lqt_ffmpeg_la_LIBADD = @MODULE_LIBADD@ @AVCODEC_LIBS@ $(libswscale_libs) -lavutil
+ noinst_HEADERS = ffmpeg.h params.h
+ all: all-am
+ 

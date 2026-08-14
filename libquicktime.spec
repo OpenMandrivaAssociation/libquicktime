@@ -37,6 +37,7 @@ Patch6:		06_CVE-2017-9122.patch
 Patch7:		07_ffmpeg-4.0.patch
 Patch8:		08_ffmpeg-5-9.patch
 Patch9:		09_cooker-build.patch
+Patch10:	10_ffmpeg-avutil.patch
 BuildRequires:	gnu-config
 BuildRequires:	slibtool
 BuildRequires:	make
